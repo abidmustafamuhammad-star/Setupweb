@@ -989,10 +989,266 @@
 
     window.showImmediately = true
 
-    // Silakan tambahkan script tambahan di daerah sini.
-    // Setelah selesai, simpan script tersebut di Extended JS pada Pengaturan Template.
+    /* ============================================
+   1. FONT
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-    /* [$ .Template.ExtendedJS $] */
+body {
+  font-family: 'Plus Jakarta Sans', var(--bs-font-sans-serif);
+  background-color: #fafafa !important;
+}
+
+/* ============================================
+   2. BORDER GLOBAL — ganti dari hitam 2px jadi
+   abu muda #ececec 1px di SELURUH elemen web
+   (targetnya variable root yang dipakai tema)
+   ============================================ */
+:root,
+[data-bs-theme=light],
+[data-bs-theme=dark] {
+  --bs-border-width: 1px;
+  --bs-border-color: #ececec;
+}
+
+.card,
+.card-header,
+.card-footer {
+  --bs-card-border-color: #ececec;
+}
+
+/* ============================================
+   3. TOMBOL (.btn) — semua tombol di seluruh
+   halaman (home, cart, order, modal, checkout)
+   ============================================ */
+.btn {
+  margin: 0 !important;
+  border-width: 1px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08) !important;
+  transform: none !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+  border-radius: 8px !important;
+}
+.btn:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.14) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Tombol utama: Beli Sekarang, Checkout, dll */
+.btn-primary {
+  --bs-btn-bg: #3d5a80;
+  --bs-btn-border-color: #3d5a80;
+  --bs-btn-hover-bg: #32496a;
+  --bs-btn-hover-border-color: #32496a;
+  --bs-btn-active-bg: #2a3d59;
+  --bs-btn-active-border-color: #2a3d59;
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+}
+
+/* Tombol outline: +Keranjang, theme toggle */
+.btn-outline-primary,
+.btn-outline-secondary {
+  --bs-btn-color: #3d5a80;
+  --bs-btn-border-color: #ececec;
+  --bs-btn-hover-bg: #3d5a80;
+  --bs-btn-hover-border-color: #3d5a80;
+  --bs-btn-hover-color: #fff;
+}
+
+/* Tombol sekunder: Cek Status, dll */
+.btn-secondary {
+  --bs-btn-bg: #ececec;
+  --bs-btn-border-color: #ececec;
+  --bs-btn-color: #1d2939;
+  --bs-btn-hover-bg: #dcdcdc;
+  --bs-btn-hover-border-color: #dcdcdc;
+  --bs-btn-hover-color: #1d2939;
+}
+
+.text-primary {
+  color: #3d5a80 !important;
+}
+
+/* ============================================
+   4. NAVBAR (#topnav)
+   ============================================ */
+#topnav.fixed-top {
+  border-bottom: 1px solid #ececec !important;
+  border-width: 0 0 1px 0 !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.navbar-brand {
+  font-weight: 700 !important;
+  color: #1d2939 !important;
+}
+
+#cart-btn {
+  border-radius: 8px !important;
+}
+
+/* ============================================
+   5. HERO BANNER (#hero) — halaman utama
+   ============================================ */
+#hero {
+  border: 1px solid #ececec !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
+  background: linear-gradient(135deg, #f8f9fb, #eef1f5);
+}
+
+#site-name {
+  font-weight: 700;
+  color: #1d2939;
+}
+
+#site-description {
+  color: #667085;
+}
+
+#site-logo {
+  border: 3px solid #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.contact-btn {
+  border-radius: 50% !important;
+  border-color: #ececec !important;
+}
+
+/* ============================================
+   6. DAFTAR PRODUK (.product-item)
+   ============================================ */
+.product-item {
+  border-radius: 12px !important;
+  border-color: #ececec !important;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.product-item:hover {
+  box-shadow: 0 10px 24px rgba(0,0,0,0.1) !important;
+  transform: translateY(-3px);
+}
+
+.product-item-name {
+  font-weight: 600;
+  color: #1d2939;
+}
+
+.product-item-price .fw-bold {
+  color: #3d5a80;
+}
+
+#products-action .form-control {
+  border-color: #ececec !important;
+  border-radius: 8px !important;
+}
+
+/* ============================================
+   7. TESTIMONI (.testimonial-item)
+   ============================================ */
+.testimonial-item {
+  border-radius: 12px !important;
+  border-color: #ececec !important;
+  background-color: #fff;
+}
+
+/* ============================================
+   8. MODAL DETAIL PRODUK (#showing-product)
+   ============================================ */
+.modal-content {
+  border-radius: 16px !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18) !important;
+  border: none !important;
+}
+
+.close-product {
+  background-color: #3d5a80 !important;
+}
+
+/* ============================================
+   9. TOAST "Pesanan berhasil"
+   ============================================ */
+.toast {
+  border-radius: 12px !important;
+  border-color: #ececec !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+}
+
+/* ============================================
+   10. KERANJANG (#cart)
+   ============================================ */
+.cart-list-item {
+  border-radius: 12px !important;
+  border-color: #ececec !important;
+}
+
+.cart-item-add {
+  color: #3d5a80 !important;
+}
+
+#cart-checkout-form {
+  border-radius: 12px !important;
+  border-color: #ececec !important;
+}
+
+#cart-checkout-name .form-control,
+#cart-checkout-email .form-control,
+#cart-checkout-phone .form-control {
+  border-color: #ececec !important;
+  border-radius: 8px !important;
+}
+
+/* ============================================
+   11. PESANAN & PEMBAYARAN (#order, #payment)
+   ============================================ */
+#order-list .card,
+#order-buyer .card {
+  border-radius: 12px !important;
+  border-color: #ececec !important;
+}
+
+.order-item-note {
+  background-color: #fafafa !important;
+  border-color: #ececec !important;
+}
+
+/* Accordion QRIS & Transfer Bank */
+.accordion-item {
+  border-color: #ececec !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.accordion-button {
+  font-weight: 600;
+  color: #1d2939;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #3d5a80 !important;
+  color: #fff !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+  filter: brightness(0) invert(1);
+}
+
+#qris-img {
+  border-color: #ececec !important;
+  border-radius: 12px;
+}
+
+/* ============================================
+   12. FOOTER
+   ============================================ */
+footer {
+  border-top: 1px solid #ececec !important;
+  color: #98a2b3 !important;
+}
 
 
     document.addEventListener('alpine:init', () => {
