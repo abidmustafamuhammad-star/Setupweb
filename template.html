@@ -9,10 +9,123 @@
   <meta property="og:image" content="[$ .Website.Logo $]" />
   <link rel="icon" href="[$ .Website.Logo $]" />
   <!-- Silakan ganti url Bootstrap CSS jika diperlukan -->
-  <link rel="stylesheet" href="[https://bootswatch.com/5/brite/bootstrap.min.css]">
+  <link rel="stylesheet" href="[$ .Template.BootstrapCSS $]">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root,
+    [data-bs-theme="light"],
+    [data-bs-theme="dark"] {
+      --bs-body-bg: #050507;
+      --bs-body-color: #e7e7f2;
+      --bs-emphasis-color: #ffffff;
+      --bs-secondary-color: #a9a9c2;
+      --bs-tertiary-bg: #0b0b14;
+      --bs-secondary-bg: #0d0d18;
+      --bs-border-color: rgba(0, 255, 255, .18);
+      --bs-card-bg: rgba(18, 18, 30, .55);
+      --bs-link-color: #6ff0ff;
+      --bs-link-hover-color: #9fffe9;
+      --neon-cyan: #00f0ff;
+      --neon-pink: #ff2ee6;
+      --neon-purple: #7c4dff;
+      --neon-green: #39ff9d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      background: #050507 !important;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
     body {
       padding-right: 0 !important;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1, h2, h3, h4, h5, .h1, .h5,
+    .navbar-brand,
+    #site-name {
+      font-family: 'Orbitron', 'Inter', sans-serif;
+      letter-spacing: .3px;
+    }
+
+    /* ---------- Animated neon background blobs ---------- */
+    #bg-blobs {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      background: #050507;
+    }
+
+    #bg-blobs span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .45;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    #bg-blobs span:nth-child(1) {
+      width: 42vw;
+      height: 42vw;
+      top: -10%;
+      left: -10%;
+      background: var(--neon-purple);
+      animation: blobMove1 22s ease-in-out infinite alternate;
+    }
+
+    #bg-blobs span:nth-child(2) {
+      width: 38vw;
+      height: 38vw;
+      bottom: -15%;
+      right: -10%;
+      background: var(--neon-cyan);
+      animation: blobMove2 26s ease-in-out infinite alternate;
+    }
+
+    #bg-blobs span:nth-child(3) {
+      width: 32vw;
+      height: 32vw;
+      top: 35%;
+      left: 55%;
+      background: var(--neon-pink);
+      animation: blobMove3 19s ease-in-out infinite alternate;
+    }
+
+    #bg-blobs span:nth-child(4) {
+      width: 26vw;
+      height: 26vw;
+      top: 60%;
+      left: 5%;
+      background: var(--neon-green);
+      opacity: .3;
+      animation: blobMove1 30s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes blobMove1 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(10vw, 8vh) scale(1.15); }
+      100% { transform: translate(-6vw, 12vh) scale(.95); }
+    }
+
+    @keyframes blobMove2 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-12vw, -6vh) scale(1.1); }
+      100% { transform: translate(6vw, -10vh) scale(.9); }
+    }
+
+    @keyframes blobMove3 {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-8vw, 10vh) scale(1.2); }
+      100% { transform: translate(8vw, -8vh) scale(1); }
     }
 
     @media (min-width: 992px) {
@@ -23,21 +136,62 @@
 
     main {
       min-height: calc(-38px + 100vh);
-      padding-top: 80px;
+      padding-top: 90px;
     }
 
-    h1,
-    .h1 {
-      font-size: 27.625px;
+    h1, .h1 { font-size: 27.625px; }
+    h5, .h5 { font-size: 20px; }
+
+    /* ---------- Navbar / logo ---------- */
+    #topnav {
+      background: rgba(8, 8, 14, .6) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0, 240, 255, .25) !important;
+      box-shadow: 0 0 25px rgba(0, 240, 255, .12);
     }
 
-    h5,
-    .h5 {
-      font-size: 20px;
+    .navbar-brand {
+      font-weight: 700;
+      color: #fff !important;
+      text-shadow: 0 0 8px rgba(0, 240, 255, .65), 0 0 18px rgba(124, 77, 255, .35);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      transition: text-shadow .25s ease;
+    }
+
+    .navbar-brand:hover {
+      text-shadow: 0 0 12px rgba(0, 240, 255, .9), 0 0 26px rgba(255, 46, 230, .5);
     }
 
     #topnav-action .btn {
       line-height: 0px;
+      border-radius: 10px;
+    }
+
+    #theme-toggle {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(0, 240, 255, .3);
+      color: #6ff0ff;
+      transition: box-shadow .25s ease, transform .2s ease;
+    }
+
+    #theme-toggle:hover {
+      box-shadow: 0 0 14px rgba(0, 240, 255, .5);
+      transform: translateY(-1px);
+    }
+
+    #cart-btn {
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+      border: none;
+      box-shadow: 0 0 16px rgba(124, 77, 255, .45);
+      transition: box-shadow .25s ease, transform .2s ease;
+    }
+
+    #cart-btn:hover {
+      box-shadow: 0 0 24px rgba(0, 240, 255, .7);
+      transform: translateY(-1px);
     }
 
     .close-product {
@@ -47,24 +201,170 @@
       margin-top: 10px;
     }
 
-    .cart-item-photo,
-    .order-item-photo {
-      width: 50px;
-      height: 50px;
+    /* ---------- Generic card / surface styling ---------- */
+    .card,
+    .bg-body,
+    .bg-body-tertiary,
+    .bg-body-secondary,
+    .accordion-item,
+    .toast,
+    .modal-content {
+      background: rgba(16, 16, 26, .55) !important;
+      border: 1px solid rgba(0, 240, 255, .14) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .contact-icon {
-      width: 18px;
-      height: 18px;
+    .card {
+      border-radius: 16px !important;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    #hero {
+      box-shadow: 0 0 40px rgba(124, 77, 255, .12);
     }
 
     #site-logo {
       width: 70px;
       height: 70px;
+      border: 2px solid rgba(0, 240, 255, .5);
+      box-shadow: 0 0 18px rgba(0, 240, 255, .5), 0 0 34px rgba(255, 46, 230, .25);
+      animation: logoPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 14px rgba(0, 240, 255, .45), 0 0 26px rgba(255, 46, 230, .2); }
+      50% { box-shadow: 0 0 22px rgba(0, 240, 255, .75), 0 0 40px rgba(255, 46, 230, .4); }
     }
 
     #site-description {
       white-space: pre-line;
+      color: var(--bs-secondary-color);
+    }
+
+    .contact-btn {
+      border-radius: 12px !important;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 14px rgba(0, 240, 255, .45);
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan)) !important;
+      border: none !important;
+      box-shadow: 0 0 14px rgba(124, 77, 255, .4);
+      transition: box-shadow .25s ease, transform .2s ease;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 22px rgba(0, 240, 255, .65);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-primary {
+      color: #6ff0ff !important;
+      border-color: rgba(0, 240, 255, .5) !important;
+      transition: box-shadow .25s ease, background .25s ease;
+    }
+
+    .btn-outline-primary:hover {
+      background: rgba(0, 240, 255, .08) !important;
+      box-shadow: 0 0 14px rgba(0, 240, 255, .35);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, .06) !important;
+      border: 1px solid rgba(255, 255, 255, .15) !important;
+    }
+
+    /* ---------- Product slider ---------- */
+    #products-header h2 {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0, 240, 255, .35);
+    }
+
+    #products-list.row {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scroll-behavior: smooth;
+      padding-bottom: 10px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    }
+
+    #products-list.row::-webkit-scrollbar {
+      display: none;
+    }
+
+    #products-list .product-item-wrapper {
+      flex: 0 0 auto;
+      width: 190px;
+      scroll-snap-align: start;
+    }
+
+    @media (min-width: 768px) {
+      #products-list .product-item-wrapper {
+        width: 220px;
+      }
+    }
+
+    .product-item {
+      border-radius: 16px !important;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .product-item:hover {
+      transform: translateY(-6px);
+      border-color: rgba(0, 240, 255, .5) !important;
+      box-shadow: 0 8px 28px rgba(0, 240, 255, .25);
+    }
+
+    .product-item-photo {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .product-item:hover .product-item-photo {
+      transform: scale(1.08);
+    }
+
+    .product-item-name {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .empty-stock {
+      text-shadow: 0 0 6px rgba(255, 46, 230, .5);
+    }
+
+    /* ---------- Testimonials ---------- */
+    .testimonial-item {
+      border-left: 3px solid var(--neon-cyan) !important;
+      border-radius: 12px !important;
+    }
+
+    /* ---------- Cart / order elements ---------- */
+    .cart-item-photo,
+    .order-item-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
     }
 
     #showing-product-page {
@@ -81,11 +381,6 @@
       white-space: pre-line;
     }
 
-    .order-item-photo {
-      width: 50px;
-      height: 50px;
-    }
-
     .order-item-note {
       white-space: pre-line;
     }
@@ -93,10 +388,16 @@
     #qris-img {
       width: 300px;
       height: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, .3);
     }
 
     #order-receipt pre {
       white-space: pre-line;
+    }
+
+    #img-slider .carousel-item img {
+      border-radius: 14px;
     }
 
     #splash-screen {
@@ -105,12 +406,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 255, 255, 0.8);
+      background: #050507;
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 1.5rem;
+      color: #6ff0ff;
+      text-shadow: 0 0 12px rgba(0, 240, 255, .6);
     }
     /*
     Silakan tambahkan CSS tambahan di bawah ini.
@@ -123,6 +426,12 @@
 </head>
 
 <body class="bg-body-secondary">
+  <div id="bg-blobs" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <div id="splash-screen" class="bg-body">&nbsp;</div>
   <nav id="topnav" class="navbar container bg-body border-bottom fixed-top px-3 px-lg-4">
     <a class="navbar-brand" href="/">[$ .Website.Name $]</a>
@@ -1001,6 +1310,52 @@
       }
     })
 
+  </script>
+  <!-- Script tambahan khusus efek auto-slide produk (visual saja, tidak menyentuh logika Alpine di atas) -->
+  <script>
+    (function () {
+      function initAutoSlide() {
+        const list = document.getElementById('products-list');
+        if (!list) return;
+
+        let direction = 1;
+        let paused = false;
+        let timer = null;
+
+        function tick() {
+          if (paused || !list || list.scrollWidth <= list.clientWidth) return;
+          const maxScroll = list.scrollWidth - list.clientWidth;
+          let next = list.scrollLeft + direction * 1.2;
+          if (next >= maxScroll) {
+            next = maxScroll;
+            direction = -1;
+          } else if (next <= 0) {
+            next = 0;
+            direction = 1;
+          }
+          list.scrollLeft = next;
+        }
+
+        list.addEventListener('mouseenter', () => { paused = true; });
+        list.addEventListener('mouseleave', () => { paused = false; });
+        list.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+        list.addEventListener('touchend', () => { setTimeout(() => paused = false, 2000); });
+
+        timer = setInterval(tick, 16);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAutoSlide);
+      } else {
+        initAutoSlide();
+      }
+
+      // #products-list baru dirender ulang oleh Alpine setiap fetch produk selesai,
+      // observer ini memastikan auto-slide tetap jalan meski elemen berubah isi.
+      const observer = new MutationObserver(() => {});
+      const target = document.getElementById('app');
+      if (target) observer.observe(target, { childList: true, subtree: true });
+    })();
   </script>
 </body>
 </html>
