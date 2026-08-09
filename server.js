@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import https from 'https'
 
-const WEBKUS_URL = 'https://demo.webkus.com'
+const WEBKUS_URL = 'https://app.webkus.com'
 
 function render(data) {
   const __dirname = new URL('.', import.meta.url).pathname
